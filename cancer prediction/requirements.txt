@@ -1,0 +1,6 @@
+Flask
+pymongo
+joblib
+numpy
+werkzeug
+python-dotenv

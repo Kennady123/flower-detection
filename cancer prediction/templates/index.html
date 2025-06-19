@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Predict Lung Cancer Risk</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f8fb;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .container {
+            width: 80%;
+            max-width: 800px;
+            margin: 40px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            text-align: center;
+            color: #2ab7a9;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        label {
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 5px;
+            flex: 1;
+            text-align: right;
+        }
+
+        input[type="number"],
+        select {
+            width: 60%;
+            padding: 10px;
+            margin: 5px 0 15px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #2ab7a9;
+            color: white;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #249d8c;
+        }
+
+        .message {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .message p {
+            font-size: 18px;
+        }
+
+        .message .error {
+            color: red;
+        }
+
+        .message .success {
+            color: green;
+        }
+
+        .logout-btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #ff4d4d;
+            color: white;
+            text-align: center;
+            border-radius: 5px;
+            margin-top: 20px;
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+        .logout-btn:hover {
+            background-color: #e60000;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Welcome, {{ user }}!</h1>
+
+        {% if error %}
+            <div class="message">
+                <p class="error">Error: {{ error }}</p>
+            </div>
+        {% endif %}
+
+        {% if prediction %}
+            <div class="message">
+                <p class="success">The prediction level: {{ prediction }}</p>
+            </div>
+        {% else %}
+            <div class="message">
+                <p>No prediction made yet. Enter details below.</p>
+            </div>
+        {% endif %}
+
+        <form method="POST">
+            <div class="form-group">
+                <label for="age">What is your age? (Enter your current age in years):</label>
+                <input type="number" name="age" required placeholder="Enter your age">
+            </div>
+            <div class="form-group">
+                <label for="smoke">Do you smoke? (Select "Yes" if you smoke regularly, otherwise "No"):</label>
+                <select name="smoke" required>
+                    <option value="" disabled selected>Select Yes or No</option>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="yellow_fingers">Do you have yellow fingers? (Indicates nicotine staining):</label>
+                <select name="yellow_fingers" required>
+                    <option value="" disabled selected>Select Yes or No</option>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="anxiety">Do you experience anxiety? (Choose "Yes" if you feel anxious frequently):</label>
+                <select name="anxiety" required>
+                    <option value="" disabled selected>Select Yes or No</option>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="peer_pressure">Do you feel pressured by others (peer pressure) to smoke or engage in harmful behaviors?</label>
+                <select name="peer_pressure" required>
+                    <option value="" disabled selected>Select Yes or No</option>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="chronic_disease">Do you have a chronic disease (e.g., asthma, diabetes)?</label>
+                <select name="chronic_disease" required>
+                    <option value="" disabled selected>Select Yes or No</option>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="fatigue">Do you often feel fatigued or tired without reason?</label>
+                <select name="fatigue" required>
+                    <option value="" disabled selected>Select Yes or No</option>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="allergies">Do you have allergies? (e.g., pollen, dust, pet dander):</label>
+                <select name="allergies" required>
+                    <option value="" disabled selected>Select Yes or No</option>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="wheeze">Do you experience wheezing or shortness of breath?</label>
+                <select name="wheeze" required>
+                    <option value="" disabled selected>Select Yes or No</option>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                </select>
+            </div>
+            <button type="submit">Predict</button>
+        </form>
+
+        <a href="{{ url_for('logout') }}" class="logout-btn">Logout</a>
+    </div>
+
+</body>
+</html>

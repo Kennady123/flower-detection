@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Lung Cancer Risk Prediction - Login</title>
+</head>
+<body style="font-family: Arial, sans-serif; margin: 0; padding: 0; background: linear-gradient(to right, #f4f4f4, #bde0fe); display: flex; height: 100vh; justify-content: center; align-items: center;">
+
+    <div style="width: 900px; display: flex; background: white; box-shadow: 0px 4px 10px rgba(0,0,0,0.2); border-radius: 10px; overflow: hidden;">
+        
+        <!-- Left Side - Login Form -->
+        <div style="flex: 1; padding: 40px; background: #fff;">
+            <h2 style="text-align: center; color: #333;">Login to Your Account</h2>
+            <p style="text-align: center; color: #666;">Lung Cancer Risk Prediction</p>
+
+            <!-- Flash Messages -->
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <p style="color: red; text-align: center;">{{ message }}</p>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+
+            <!-- Login Form -->
+            <form method="POST" autocomplete="off" onsubmit="clearInputs()" style="display: flex; flex-direction: column; gap: 10px;">
+                <input type="email" name="email" placeholder="Email" id="emailField"
+                    style="padding: 12px; border: 1px solid #ccc; border-radius: 5px;" autocomplete="off" autofocus>
+                
+                <input type="password" name="password" placeholder="Password" id="passwordField"
+                    style="padding: 12px; border: 1px solid #ccc; border-radius: 5px;" autocomplete="off">
+                
+                <button type="submit" style="background: #0077b6; color: white; padding: 12px; border: none; border-radius: 5px; cursor: pointer;">Login</button>
+            </form>
+            
+
+            <p style="text-align: center; margin-top: 10px;">Don't have an account? 
+                <a href="{{ url_for('signup') }}" style="color: #0077b6; text-decoration: none;">Sign up here</a>
+            </p>
+        </div>
+
+        <!-- Right Side - Sign Up Panel -->
+        <div style="flex: 1; background: linear-gradient(to right, #0096c7, #48cae4); padding: 40px; text-align: center; color: white;">
+            <h2>New Here?</h2>
+            <p>Sign up and discover a great way to assess lung cancer risks.</p>
+            <a href="{{ url_for('signup') }}" 
+                style="background: white; color: #0096c7; padding: 12px 20px; text-decoration: none; border-radius: 20px; font-weight: bold; display: inline-block; margin-top: 20px;">Sign Up</a>
+        </div>
+
+        <script type="text/javascript">
+            // This script will call the logout route when the user tries to close the browser/tab
+            window.addEventListener("beforeunload", function (e) {
+                // Send a GET request to the logout route
+                navigator.sendBeacon("{{ url_for('logout') }}");
+            });
+        </script>
+    
+
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup - Lung Cancer Risk</title>
+</head>
+<body style="margin: 0; padding: 0; font-family: Arial, sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; background-color: #f0f8ff;">
+
+    <!-- Signup Form Container -->
+    <div style="display: flex; width: 60%; max-width: 900px; background: white; border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); overflow: hidden;">
+        
+        <!-- Left Section (Sign In Redirect) -->
+        <div style="width: 40%; background: #2ab7a9; color: white; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 40px;">
+            <h2>Welcome Back!</h2>
+            <p style="text-align: center; margin: 20px 0;">Log in to check your lung cancer risk status.</p>
+            <a href="{{ url_for('login') }}" style="background: white; color: #2ab7a9; padding: 10px 20px; text-decoration: none; border-radius: 20px; font-weight: bold;">Sign In</a>
+
+        </div>
+
+        <!-- Right Section (Signup Form) -->
+        <div style="width: 60%; padding: 40px; text-align: center;">
+            <h2 style="color: #2ab7a9; margin-bottom: 20px;">Create Account</h2>
+
+            <form action="{{ url_for('signup') }}" method="POST">
+                <input type="text" name="name" placeholder="Name" required style="width: 80%; padding: 10px; margin: 10px 0; border: 1px solid #ccc; border-radius: 5px; display: block; margin: auto;">
+                
+                <input type="email" name="email" placeholder="Email" required style="width: 80%; padding: 10px; margin: 10px 0; border: 1px solid #ccc; border-radius: 5px; display: block; margin: auto;">
+                
+                <input type="password" name="password" placeholder="Password" required style="width: 80%; padding: 10px; margin: 10px 0; border: 1px solid #ccc; border-radius: 5px; display: block; margin: auto;">
+                
+                <button type="submit" style="width: 85%; padding: 10px; background: #2ab7a9; color: white; border: none; border-radius: 20px; font-size: 16px; cursor: pointer; margin-top: 15px;">
+                    Sign Up
+                </button>
+            </form>
+            
+        </div>
+
+    </div>
+
+</body>
+</html>
